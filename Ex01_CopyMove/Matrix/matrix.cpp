@@ -34,60 +34,60 @@ Matrix::Matrix(std::initializer_list<std::initializer_list<double>> list) : N(li
     }
 }
 
-Matrix::Matrix(const Matrix& m) : N(m.N), M(m.M) {
+Matrix::Matrix(const Matrix& other) : N(other.N), M(other.M) {
     std::cout << " copy constructor of" << sizeOfMatrixName() << std::endl;
 
     this->data = new double[N * M]{};
 
-    std::copy(m.data, m.data + N * M, data);
+    std::copy(other.data, other.data + N * M, data);
 }
 
-Matrix::Matrix(Matrix&& m)  noexcept : N(m.N), M(m.M) {
+Matrix::Matrix(Matrix&& other)  noexcept : N(other.N), M(other.M) {
     std::cout << " move constructor of" << sizeOfMatrixName() << std::endl;
 
-    this->data = m.data;
+    this->data = other.data;
 
-    m.M = 0;
-    m.N = 0;
-    m.data = nullptr;
+    other.M = 0;
+    other.N = 0;
+    other.data = nullptr;
 }
 
 Matrix::~Matrix() {
     delete[] data;
 }
 
-Matrix& Matrix::operator=(const Matrix& m) {
+Matrix& Matrix::operator=(const Matrix& other) {
     std::cout << " copy assignment of" << sizeOfMatrixName() << std::endl;
 
-    if (this == &m) {
+    if (this == &other) {
         return *this;
     }
 
     delete[] data;
 
-    N = m.N;
-    M = m.M;
+    N = other.N;
+    M = other.M;
     data = new double[N * M]{};
 
-    std::copy(m.data, m.data + N * M, data);
+    std::copy(other.data, other.data + N * M, data);
 
     return *this;
 }
 
-Matrix& Matrix::operator=(Matrix&& m) noexcept{
+Matrix& Matrix::operator=(Matrix&& other) noexcept{
     std::cout << " move assignment of" << sizeOfMatrixName() << std::endl;
 
-    if (this == &m) {
+    if (this == &other) {
         return *this;
     }
 
-    this->data = m.data;
-    this->M = m.M;
-    this->N =m.N;
+    this->data = other.data;
+    this->M = other.M;
+    this->N =other.N;
 
-    m.M = 0;
-    m.N = 0;
-    m.data = nullptr;
+    other.M = 0;
+    other.N = 0;
+    other.data = nullptr;
 
     return *this;
 }
