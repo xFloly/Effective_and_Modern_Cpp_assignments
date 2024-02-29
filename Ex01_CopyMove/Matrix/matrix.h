@@ -42,6 +42,10 @@ public:
     using Matrix::Matrix;
     MatrixWithLabel(std::string, int, int);
     MatrixWithLabel(std::string,std::initializer_list<std::initializer_list<double>>);
+    MatrixWithLabel(const MatrixWithLabel&);
+    MatrixWithLabel(MatrixWithLabel&&) noexcept;
+    MatrixWithLabel& operator=(MatrixWithLabel&&) noexcept;
+
 
     std::string getLabel();
     void setLabel(std::string);
