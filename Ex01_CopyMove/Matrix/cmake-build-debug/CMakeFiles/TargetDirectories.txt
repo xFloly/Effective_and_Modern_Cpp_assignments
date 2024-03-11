@@ -1,3 +1,0 @@
-C:/Users/soszy/Documents/studia/6/Cpp/Effective_and_Modern_Cpp/Ex01_CopyMove/Matrix/cmake-build-debug/CMakeFiles/Matrix.dir
-C:/Users/soszy/Documents/studia/6/Cpp/Effective_and_Modern_Cpp/Ex01_CopyMove/Matrix/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/soszy/Documents/studia/6/Cpp/Effective_and_Modern_Cpp/Ex01_CopyMove/Matrix/cmake-build-debug/CMakeFiles/rebuild_cache.dir
