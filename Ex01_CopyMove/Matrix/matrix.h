@@ -45,6 +45,7 @@ public:
     MatrixWithLabel(const MatrixWithLabel&);
     MatrixWithLabel(MatrixWithLabel&&) noexcept;
     MatrixWithLabel& operator=(MatrixWithLabel&&) noexcept;
+    MatrixWithLabel& operator=(const MatrixWithLabel&);
 
 
     std::string getLabel();

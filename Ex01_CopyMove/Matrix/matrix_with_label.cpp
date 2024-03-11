@@ -23,8 +23,21 @@ MatrixWithLabel::MatrixWithLabel(MatrixWithLabel&& other)  noexcept : Matrix(std
 }
 
 MatrixWithLabel& MatrixWithLabel::operator=(MatrixWithLabel&& other) noexcept {
-    Matrix::operator=(std::move(other));
-    this->label = std::move(other.label);
+    if (this != &other){
+
+        Matrix::operator=(std::move(other));
+        this->label = std::move(other.label);
+    }
+
+    return *this;
+}
+
+MatrixWithLabel& MatrixWithLabel::operator=(const MatrixWithLabel& other){
+    if (this != &other){
+        Matrix::operator=(other);
+        this->label = other.label;
+    }
+
     return *this;
 }
 

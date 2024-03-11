@@ -39,7 +39,7 @@ Matrix::Matrix(const Matrix& other) : N(other.N), M(other.M) {
 
     this->data = new double[N * M]{};
 
-    std::copy(other.data, other.data + N * M, data);
+    std::copy(other.data, other.data + N * M, this->data);
 }
 
 Matrix::Matrix(Matrix&& other)  noexcept : N(other.N), M(other.M) {
@@ -59,17 +59,16 @@ Matrix::~Matrix() {
 Matrix& Matrix::operator=(const Matrix& other) {
     std::cout << " copy assignment of" << sizeOfMatrixName() << std::endl;
 
-    if (this == &other) {
-        return *this;
+    if (this != &other) {
+
+        delete[] data;
+
+        N = other.N;
+        M = other.M;
+        data = new double[N * M]{};
+
+        std::copy(other.data, other.data + N * M, data);
     }
-
-    delete[] data;
-
-    N = other.N;
-    M = other.M;
-    data = new double[N * M]{};
-
-    std::copy(other.data, other.data + N * M, data);
 
     return *this;
 }
@@ -77,17 +76,18 @@ Matrix& Matrix::operator=(const Matrix& other) {
 Matrix& Matrix::operator=(Matrix&& other) noexcept{
     std::cout << " move assignment of" << sizeOfMatrixName() << std::endl;
 
-    if (this == &other) {
-        return *this;
+    if (this != &other) {
+
+        delete[] data;
+
+        this->data = other.data;
+        this->M = other.M;
+        this->N =other.N;
+
+        other.M = 0;
+        other.N = 0;
+        other.data = nullptr;
     }
-
-    this->data = other.data;
-    this->M = other.M;
-    this->N =other.N;
-
-    other.M = 0;
-    other.N = 0;
-    other.data = nullptr;
 
     return *this;
 }

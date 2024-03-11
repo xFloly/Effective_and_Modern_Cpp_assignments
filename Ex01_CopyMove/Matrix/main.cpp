@@ -20,10 +20,10 @@ int main(){
 //
     cout << "Move semantics \n";
     Matrix m7 = std::move(m2);
-    cout<<-m3;
+    //cout<<-m3;
     m4 = -m3;
     cout<<m4;
-//
+
     cout << "Copy elision \n";
     Matrix m6 = -m4;
     Matrix * pm = new Matrix(-m4);
