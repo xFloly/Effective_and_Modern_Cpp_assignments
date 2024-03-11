@@ -1,0 +1,6 @@
+C:/Users/soszy/Documents/studia/6/Cpp/Effective_and_Modern_Cpp/Ex02_SmartPointers/cmake-build-debug/CMakeFiles/DynamicContainer.dir
+C:/Users/soszy/Documents/studia/6/Cpp/Effective_and_Modern_Cpp/Ex02_SmartPointers/cmake-build-debug/CMakeFiles/StaticContainer.dir
+C:/Users/soszy/Documents/studia/6/Cpp/Effective_and_Modern_Cpp/Ex02_SmartPointers/cmake-build-debug/CMakeFiles/StaticContainer2.dir
+C:/Users/soszy/Documents/studia/6/Cpp/Effective_and_Modern_Cpp/Ex02_SmartPointers/cmake-build-debug/CMakeFiles/String.dir
+C:/Users/soszy/Documents/studia/6/Cpp/Effective_and_Modern_Cpp/Ex02_SmartPointers/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/soszy/Documents/studia/6/Cpp/Effective_and_Modern_Cpp/Ex02_SmartPointers/cmake-build-debug/CMakeFiles/rebuild_cache.dir
