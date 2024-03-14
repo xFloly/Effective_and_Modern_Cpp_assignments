@@ -7,6 +7,7 @@
 #include <numeric>
 #include <cmath>
 #include <type_traits>
+#include <random>
 using namespace std;
 
 void print(const std::vector<int> & v, const std::string & label = ""){
@@ -22,7 +23,9 @@ int main(){
 
   /// 1. Sort v with respect to the distance to the center (closest first)
   int center = 50;
-  std::sort(v.begin(), v.end(), [](){});            // 1
+  std::sort(v.begin(), v.end(), [&center](int a, int b)->bool{
+      return abs(a-center) < abs(b-center);
+  });            // 1
   print(v, "center 50:");
 
 
@@ -31,7 +34,37 @@ int main(){
   ///  - if numbers have the same sign then odd numbers are after even ones
   /// e.g.  4  < 8 < 1 < 3 < 0 <  -8 < -2 < -7 < -3
 
-  auto positiveEvenFirst= [](){};                  // 2
+  auto positiveEvenFirst= [](int a, int b)->bool{
+      auto sgn = [](int x)->int {
+          if (x>0)
+              return 1;
+          if(x<0)
+              return -1;
+          return 0;
+      };
+
+      auto type = [](int x)->int{
+          if(x==0){
+              return 0;
+          }
+          if (x%2 == 0){
+              return -1;
+          }
+          return 1;
+
+      };
+
+      if(sgn(a) == sgn(b)){
+          if(type(a) != type(b)){
+              return type(a)  < type(b);
+          } else{
+              return a < b;
+          }
+      } else {
+          return a > b;
+      }
+
+  };                  // 2
   std::sort(v.begin(), v.end(), positiveEvenFirst);
   print(v, "positiveEven:");
 
@@ -52,9 +85,14 @@ int main(){
   /// 3. generator = function without parameters that return random integer number
   /// from interval [a, b] (a and b both included).
   /// Changing values of a or b should change the interval used by generator.
-  srand(2022);
+  //srand(2022);
   int a = 0, b = 40;
-  auto generator = []{};  /// 3
+  auto generator = [&a,&b] () -> int {
+      std::random_device rd;  // a seed source for the random number engine
+      std::mt19937 gen(rd()); // mersenne_twister_engine seeded with rd()
+      std::uniform_int_distribution<> distrib(a, b);
+      return distrib(gen);
+  };  /// 3
 
   std::generate(v.begin(), v.end(), generator);
   print(v, "generator [0,40]:");
@@ -67,7 +105,10 @@ int main(){
   /// Changing start does not change the beginning of the sequence
   /// but a change of step influences the function output.
   int start = 5, step =2;
-  auto arithmeticGenerator =  [](){} ;                   // [ 4 ]
+  auto arithmeticGenerator = [current=start,&step]() mutable -> int{
+      current += step;
+      return current-step;
+  };                   // [ 4 ]
   std::generate(v.begin(), v.end(), arithmeticGenerator );
   print(v, "arithm [5,2] :");
 
@@ -79,7 +120,11 @@ int main(){
   /// 5. Function that for given standard container (vector, list, deque)
   ///  computes l1 norm i.e. the sum of the absolute values of elements in the container.
   ///  Try to use std::accumulate algorithm with another lambda expression to implement it.
-  auto l1_norm = [](){}; ;                           // [ 5 ]
+  auto l1_norm = [](auto iterator)->auto{
+      return std::accumulate(iterator.begin(), iterator.end(),0.0, [](auto sum, auto x)-> auto {
+          return sum+std::abs(x);
+      });
+  };                           // [ 5 ]
 
   cout << "l1 norm (v) : " << l1_norm(v) << endl;
   assert(l1_norm(v) == 1050);
@@ -93,7 +138,14 @@ int main(){
   /// 6. Function that for given array a and integer n returns
   /// a function with one parameter x that computes
   /// a value of a polynomial of degree n with coefficients a at the point x.
-  auto polynomial = [](double * a, int n){
+  auto polynomial = [](double * a, int n) -> auto {
+      return [&a,n](double x){
+          double tmp = 0.0;
+          for(int i=n;i>=0;i--){
+              tmp += *(a+i) * std::pow(x,i);
+          }
+          return tmp;
+      };
   };   // ( 6 )
 
   double c[] = {1, 2, 3, 4, 5};

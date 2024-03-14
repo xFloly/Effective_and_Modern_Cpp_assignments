@@ -1,11 +1,28 @@
 #include <iostream>
+#include <utility>
 #include <vector>
 #include <fstream>
 #include <algorithm>
+#include<iterator>
 
 using namespace std;
+
+
 class Printer{
-	/// TODO
+private:
+    string prefix;
+    string postfix;
+    std::ostream& stream;
+public:
+    Printer(std::ostream& stream,string  prefix, string  postfix) : prefix(std::move(prefix)),postfix(std::move(postfix)),stream(stream){}
+
+    template<typename T>
+    void operator()(T obj){
+        stream << prefix << obj << postfix;
+    }
+
+
+
 };
 
 int main(){
@@ -19,11 +36,11 @@ int main(){
   std::vector<int> v = {1, 2, 3, 4};
   std::for_each(v.begin(), v.end(), printer);  // v = [ 1 ] [ 2 ] [ 3 ] [ 4 ]
 
-  std::ofstream file("myFile.txt");
+  std::ofstream file("Printer/myFile.txt");
   Printer filePrinter(file, "- ", "\n");
   filePrinter(5);
   filePrinter("My text");	
-	return 0;
+  return 0;
 }
 /** myFile.txt
 - 5

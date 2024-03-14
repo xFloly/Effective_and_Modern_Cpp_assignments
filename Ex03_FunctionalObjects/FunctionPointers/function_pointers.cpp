@@ -13,9 +13,9 @@ double function(int n, double y, double z, F f, G g){
 	return (f(n,y) > z) ? g(z, y) : g(y, z);
 }
 int main(){
-	auto fp1 = sqrtn;
-    auto fp2 = power;
-	auto fp3 = function<decltype(fp1), decltype(fp2)>;
+	double(*fp1)(int,double) = sqrtn;
+    double(*fp2)(double,double) = power;
+	double(*fp3)(int, double, double, double(*)(int,double),double(*)(double,double)) = function<decltype(fp1), decltype(fp2)>;
 	cout << fp3(2, 10, 3, fp1, fp2) << endl;
 	cout << fp3(3, 10, 3, fp1, fp2) << endl;
 	return 0;
