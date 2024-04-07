@@ -139,7 +139,7 @@ int main(){
   /// a function with one parameter x that computes
   /// a value of a polynomial of degree n with coefficients a at the point x.
   auto polynomial = [](double * a, int n) -> auto {
-      return [&a,n](double x){
+      return [a,n](double x){
           double tmp = 0.0;
           for(int i=n;i>=0;i--){
               tmp += *(a+i) * std::pow(x,i);
