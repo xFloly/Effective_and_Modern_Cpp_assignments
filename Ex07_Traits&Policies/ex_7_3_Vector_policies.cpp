@@ -4,7 +4,7 @@ using  namespace std;
 int main() {
     int value = 5;
     {  /// sets coordinates to zero and checks indices
-        using Vect = Vector<double, 3, SafePolicy>;
+        using Vect = Vector<double, 3, SafePolicy<double>>;
         Vect a{};
         a.set(1, -1);              // OK
         cout << a << endl;         // 0 -1 0

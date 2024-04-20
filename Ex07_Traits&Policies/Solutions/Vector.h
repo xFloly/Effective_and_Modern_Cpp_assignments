@@ -13,14 +13,10 @@
 
 template <typename T,
         size_t N,
-        template<typename,template<typename> class,template<typename> class> class IntervalPolicy = IntervalPolicy,
-        template<typename> class InitPolicy = NoInit,
-        template<typename> class CheckingPolicy = NoCheckingPolicy>
-class Vector : public IntervalPolicy<T,InitPolicy, CheckingPolicy>{
+        typename IntervalPolicy= IntervalPolicy<T,NoCheckingPolicy,NoInit>>
+class Vector : public IntervalPolicy{
   T data[N];
 
-  //using IntervalPolicy<T,InitPolicy,CheckingPolicy>::CheckingPolicy;
-  //using IntervalPolicy<T,InitPolicy,CheckingPolicy>::InitPolicy;
 
  public:
   typedef typename vector_traits<T>::value_type value_type;
@@ -61,6 +57,7 @@ class Vector : public IntervalPolicy<T,InitPolicy, CheckingPolicy>{
 
   friend Vector operator* (scalar_type x, const Vector & v ){
 	Vector result;
+
     if constexpr (is_string<T>::value){
         for(int i=0; i < v.size(); ++i){
             auto val = v.get(i);
@@ -95,5 +92,8 @@ class Vector : public IntervalPolicy<T,InitPolicy, CheckingPolicy>{
   }
 
 };
+
+//template<typename T, size_t N>
+//using Vector = Vector<T, N, IntervalPolicy,NoCheckingPolicy, NoInit>;
 
 #endif // LAB8_VECTOR_H
