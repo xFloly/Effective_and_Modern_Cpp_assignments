@@ -12,4 +12,5 @@ add_executable(ex3_policies ex_7_3_Vector_policies.cpp
         Solutions/vector_policies.h
         Solutions/vector_traits.h
         Solutions/Vector.h)
-add_executable(ex4_operators ex_7_4_Vector_operators.cpp)
+add_executable(ex4_operators ex_7_4_Vector_operators.cpp
+        Solutions/Nodes.h)

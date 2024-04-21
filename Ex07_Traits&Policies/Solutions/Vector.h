@@ -8,16 +8,18 @@
 #include <vector>
 #include <cmath>
 #include <type_traits>
+
 #include "vector_traits.h"
 #include "vector_policies.h"
 
 template <typename T,
         size_t N,
-        typename IntervalPolicy= IntervalPolicy<T,NoCheckingPolicy,NoInit>>
+        typename IntervalPolicy= IntervalPolicy<NoCheckingPolicy,NoInit>>
 class Vector : public IntervalPolicy{
   T data[N];
 
-
+  using IntervalPolicy::init;
+  using IntervalPolicy::check;
  public:
   typedef typename vector_traits<T>::value_type value_type;
   typedef typename std::size_t  size_type;
@@ -28,51 +30,58 @@ class Vector : public IntervalPolicy{
   typedef typename vector_traits<T>::scalar_type scalar_type;
 
 
-  Vector() = default;
+  Vector(){
+    std::fill(data,data+N,defaultValue());
+  }
+
   Vector(const Vector & v) = default;
   Vector &operator=(const Vector & m) = default;
 
   Vector(const std::initializer_list<T> &list){
-	std::copy(list.begin(), list.end(), data);
+    check(list.size(), N);
+	  std::copy(list.begin(), list.end(), data);
   }
 
   size_type size() const {
-	return N;
+    return N;
   }
 
-  static T defaultValue(){
-      if constexpr (is_string<T>::value){
-          return "0";
-      }
-      return T();
+  static T defaultValue() {
+    if constexpr (is_string<T>::value) {
+      return "0";
+    }
+    return T();
   }
 
   access_type get(size_type index) const {
-	return data[index];
+    check(index, N);
+    return data[index];
   }
 
   void set(size_type index, access_type value) {
 	data[index] = value;
   }
 
-  friend Vector operator* (scalar_type x, const Vector & v ){
-	Vector result;
+  friend Vector operator* (scalar_type x, const Vector & v ) {
+    Vector result;
 
-    if constexpr (is_string<T>::value){
-        for(int i=0; i < v.size(); ++i){
-            auto val = v.get(i);
-            for(auto j = 0; j < x; j++){
-                val+=v.get(i);
-            }
-            result.set(i, val);
+    if constexpr (is_string<T>::value) {
+      for (int i = 0; i < v.size(); ++i) {
+        auto val = v.get(i);
+        for (auto j = 0; j < x; j++) {
+          val += v.get(i);
         }
+        result.set(i, val);
+      }
     } else {
-        for(int i=0; i < v.size(); ++i){
-            result.set(i, x * v.get(i));
-        }
+      for (int i = 0; i < v.size(); ++i) {
+        result.set(i, x * v.get(i));
+      }
     }
-	return result;
+    return result;
   }
+
+
 
   friend std::ostream &operator<<(std::ostream &out, const Vector & v) {
 	for(int i=0; i < v.size(); ++i){
@@ -93,7 +102,5 @@ class Vector : public IntervalPolicy{
 
 };
 
-//template<typename T, size_t N>
-//using Vector = Vector<T, N, IntervalPolicy,NoCheckingPolicy, NoInit>;
 
 #endif // LAB8_VECTOR_H

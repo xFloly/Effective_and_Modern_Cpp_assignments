@@ -26,7 +26,22 @@ int main(){
     auto m5 = static_cast<DWektor>(m4);
     cout << m5 << endl;
 
-    SWektor<6> m6 = (SWektor<6>)(m2);
+    auto m6 = (SWektor<6>)(m2);
     cout << m6 << endl;
+
+    DWektor m7 = {1.,2.,3.,4.};
+    cout << (Vector<int,6>)m7 << endl;
+
+    auto m8 = (Vector<int,0>) (m7);
+    m7[1] = 7;
+    cout << m8 << endl;
+
+    auto m8o5 = (Vector<int>) (m7);
+    cout << m8o5 << endl;
+
+    auto m9 = (SWektor<9>)m8;
+    m8[1] = 7;
+    cout << m9 << endl;
+
     return 0;
 }

@@ -1,9 +1,18 @@
 #include <iostream>
+#include "Solutions/Nodes.h"
+
 using namespace std;
 
 template <int N>
 class Vector{
   int data[N];
+
+  template <typename, typename>
+  friend class AddNode;
+  template <typename>
+  friend class MultNode;
+  template <typename, typename>
+  friend class DivNode;
  public:
   Vector(){
 	cout << " Default constr" << endl;
@@ -32,7 +41,91 @@ class Vector{
 	}
 	return out;
   }
+
+  Vector &operator=(const Vector & v) = default;
+
+  auto size() const {
+    return N;
+  }
+
+  void set(int index, int value) {
+    data[index] = value;
+  }
 };
+
+
+
+template<typename L,typename R>
+struct AddNode {
+  const L & left;
+  const R & right;
+
+  auto operator[] (int i) const{
+    return left[i]+right[i];
+  }
+
+  template<int N>
+  operator Vector<N>(){
+    Vector<N> v;
+    for(int i=0; i<N; i++) {
+      v.data[i] = this[i];
+    }
+    return v;
+  }
+};
+
+template<typename L,typename R>
+AddNode<L,R> operator+( L && l, R && r){
+  return {l,r};
+}
+
+template<typename R>
+struct MultNode{
+  const int & left;
+  const R & right;
+
+  auto operator[] (int i) const{
+    return left*right[i];
+  }
+
+  template<int N>
+  operator Vector<N>(){
+    Vector<N> v;
+    for(int i=0; i<N; i++) {
+      v.data[i] = this[i];
+    }
+    return v;
+  }
+};
+
+template<typename R>
+MultNode<R> operator*( int && l, R && r){
+  return {l,r};
+}
+
+template<typename L,typename R>
+struct DivNode{
+  const L & left;
+  const R & right;
+
+  auto operator[] (int i) const{
+    return left[i]-right[i];
+  }
+
+  template<int N>
+  operator Vector<N>(){
+    Vector<N> v;
+    for(int i=0; i<N; i++) {
+      v.data[i] = left[i]-right[i];
+    }
+    return v;
+  }
+};
+
+template<typename L,typename R>
+DivNode<L,R> operator-( L && l, R && r){
+  return {l,r};
+}
 
 
 int main(){
@@ -45,11 +138,12 @@ int main(){
   // It does not create temporary Vectors
   // It computes resulting vector coordinate by coordinate
   // (evaluating whole expression)
-  V z = v + x + 3 * y - 2 * x;
+  V z;
+  z = v + x + 3 * y - 2 * x;
   cout << z << endl;
 
   // Computes only one coordinate of Vector
-  int e = (z+x+y)[2];
+  int e = (x+x+y)[2];
   cout << " e = " << e << endl;
   return 0;
 }

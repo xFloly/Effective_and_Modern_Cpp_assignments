@@ -5,54 +5,55 @@
 
 #include "Vector.h"
 
-template <typename T, template<typename> class CheckingPolicy, template<typename> class InitPolicy>
-class IntervalPolicy : public CheckingPolicy<T>, public InitPolicy<T> {
+template <typename CheckingPolicy, typename InitPolicy>
+class IntervalPolicy : public CheckingPolicy, public InitPolicy {
 public:
-    using InitPolicy<T>::init;
 
+    using InitPolicy::init;
+    using CheckingPolicy::check;
 };
 
-template<typename T>
+
 struct NoCheckingPolicy{
-
-
-    void check(T left, T right) {  }
-
-
+    static void check(std::size_t index, std::size_t size) {  }
 };
 
 
-template<typename T>
+
 struct ErrorCodeCheckingPolicy{
     static int errorCode;
 
+    template<typename T>
     void check(T left, T right) { if(left>right) errorCode = -1; }
 };
 
 
-template<typename T>
+
 struct ExceptionCheckingPolicy{
     static int errorCode;
 
 
-    void check(T left, T right) {
-        if(left>right)
+    static void check(std::size_t index, std::size_t size) {
+        if(index >= size || index < 0)
             throw std::runtime_error("Not correct interval bounds");
     }
 };
 
-template<typename T>
-struct NoInit{
 
+struct NoInit{
+    template<typename T>
     static void init(T & t){}
 };
 
-template<typename T>
 struct ZeroInit{
+    template<typename T>
     static void init(T & t){ t = T{}; }
 };
 
-template<typename T>
-using SafePolicy = IntervalPolicy<T,ExceptionCheckingPolicy,ZeroInit>;
+
+
+using SafePolicy = IntervalPolicy<ExceptionCheckingPolicy,ZeroInit>;
+using FastPolicy = IntervalPolicy<NoCheckingPolicy,NoInit>;
+using InitFastPolicy = IntervalPolicy<NoCheckingPolicy,ZeroInit>;
 
 #endif //EX07_TRAITS_POLICIES_VECTOR_POLICIES_H

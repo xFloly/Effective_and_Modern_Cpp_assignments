@@ -10,7 +10,8 @@
 #include <cmath>
 #include <algorithm>
 
-template <typename T, size_t N>
+
+template <typename T, size_t N = 0>
 class Vector{
     T data[N];
 
@@ -35,9 +36,15 @@ public:
 
     template<typename S, size_t M>
     explicit Vector(const Vector<S,M> & v){
-        auto min = std::min(M,N);
-        std::copy(v.data,v.data+min,data);
+        auto min = std::min(v.size(),N);
+        for(auto i = 0; i < min ;i++){
+            data[i] = static_cast<T>(v[i]);
+        }
+        for(auto i = min; i < N; i++){
+            data[i] = 0;
+        }
     }
+
 
     Vector &operator=(const Vector & m)
     {
@@ -52,13 +59,6 @@ public:
         std::copy(list.begin(), list.end(), data);
     }
 
-    friend Vector operator+ (const  Vector & u, const Vector & v ){
-        //static assert???
-        Vector<T,N> newVector{};
-        std::transform(u.data, u.data + N, v.data, newVector.data,
-                       [](const T& a, const T& b) -> T { return a + b; });
-        return newVector;
-    }
 
     constexpr size_type size() const {
         return N;
@@ -86,17 +86,12 @@ public:
         return out;
     }
 
-    friend Vector operator+ (const Vector<T,N> & u, const Vector<T, 0> & v){
-        auto tmp = (Vector)(v);
-        return u+tmp;
+    friend Vector operator+ (const Vector<T,N> & u, const Vector<T,N> & v ){
+        Vector<T,N> newVector{};
+        std::transform(u.data, u.data + N, v.data, newVector.data,
+                       [](const T& a, const T& b) -> T { return a + b; });
+        return newVector;
     }
-
-    friend Vector operator+ (const Vector<T,0> & u, const Vector<T, N> & v){
-        return v+u;
-    }
-
-
-
 };
 
 #endif //STATIC_VECTOR_H
