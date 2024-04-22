@@ -22,15 +22,15 @@ int main() {
         cout << a.get(3) << endl;  // Unspecified
         Vect b{1, 2, 3, 4};        // OK: it makes copy of only first three values
     }
-    { /// initializes to zero by default but does not check indices
-        using Vect = Vector<double, 3, InitFastPolicy>;
-        Vect a{};
-        a.set(1, -1);              // OK
-        cout << a << endl;         // OK: 0 -1 0
-        a.set(-1, 1.);             // Unspecified
-        cout << value << endl;     // value possibly changed by the previous line
-        cout << a.get(3) << endl;  // Unspecified
-        Vect b{1, 2, 3, 4};        // OK: it makes copy of only first three values
-    }
+//    { /// initializes to zero by default but does not check indices
+//        using Vect = Vector<double, 3, InitFastPolicy>;
+//        Vect a{};
+//        a.set(1, -1);              // OK
+//        cout << a << endl;         // OK: 0 -1 0
+//        a.set(-1, 1.);             // Unspecified
+//        cout << value << endl;     // value possibly changed by the previous line
+//        cout << a.get(3) << endl;  // Unspecified
+//        Vect b{1, 2, 3, 4};        // OK: it makes copy of only first three values
+//    }
     return 0;
 }

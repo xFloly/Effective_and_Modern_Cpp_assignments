@@ -5,12 +5,14 @@
 #include <memory>
 #include <iostream>
 #include <cassert>
-#include <vector>
 #include <cmath>
 #include <type_traits>
 
 #include "vector_traits.h"
 #include "vector_policies.h"
+
+
+
 
 template <typename T,
         size_t N,
@@ -20,6 +22,7 @@ class Vector : public IntervalPolicy{
 
   using IntervalPolicy::init;
   using IntervalPolicy::check;
+
  public:
   typedef typename vector_traits<T>::value_type value_type;
   typedef typename std::size_t  size_type;
@@ -29,9 +32,12 @@ class Vector : public IntervalPolicy{
   typedef const typename  vector_traits<T>::access_type access_type;
   typedef typename vector_traits<T>::scalar_type scalar_type;
 
+//  using vector_traits<T>::defaultValue;
 
   Vector(){
-    std::fill(data,data+N,defaultValue());
+    for(int i = 0; i < N;i++){
+      init(data[i]);
+    }
   }
 
   Vector(const Vector & v) = default;
@@ -46,16 +52,16 @@ class Vector : public IntervalPolicy{
     return N;
   }
 
-  static T defaultValue() {
-    if constexpr (is_string<T>::value) {
-      return "0";
-    }
-    return T();
-  }
-
   access_type get(size_type index) const {
     check(index, N);
     return data[index];
+  }
+
+  static T defaultValue(){
+    if(is_string<T>::value){
+      return "0";
+    }
+    return T{};
   }
 
   void set(size_type index, access_type value) {
@@ -81,8 +87,6 @@ class Vector : public IntervalPolicy{
     return result;
   }
 
-
-
   friend std::ostream &operator<<(std::ostream &out, const Vector & v) {
 	for(int i=0; i < v.size(); ++i){
 	  out << v.get(i) << " ";
@@ -101,6 +105,7 @@ class Vector : public IntervalPolicy{
   }
 
 };
+
 
 
 #endif // LAB8_VECTOR_H

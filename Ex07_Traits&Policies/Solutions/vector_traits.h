@@ -16,6 +16,11 @@ struct vector_traits{
     typedef const T& const_reference;
     typedef const T& access_type;
     typedef T scalar_type;
+
+//    static T defaultValue() {
+//      return T();
+//    }
+
 };
 
 template<>
@@ -27,6 +32,10 @@ struct vector_traits<int>{
     typedef int const_reference;
     typedef int access_type;
     typedef int scalar_type;
+
+//  static int defaultValue() {
+//    return int();
+//  }
 };
 template<>
 struct vector_traits<double>{
@@ -37,6 +46,10 @@ struct vector_traits<double>{
     typedef double const_reference;
     typedef double access_type;
     typedef double scalar_type;
+
+//  static double defaultValue() {
+//    return double();
+//  }
 };
 
 template<>
@@ -48,6 +61,10 @@ struct vector_traits<string>{
     typedef const string& const_reference;
     typedef const string& access_type;
     typedef int scalar_type;
+
+//    static string defaultValue(){
+//      return "0";
+//    }
 };
 
 

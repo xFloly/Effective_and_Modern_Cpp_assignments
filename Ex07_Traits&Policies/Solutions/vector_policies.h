@@ -1,7 +1,7 @@
 
-
-#ifndef EX07_TRAITS_POLICIES_VECTOR_POLICIES_H
-#define EX07_TRAITS_POLICIES_VECTOR_POLICIES_H
+//
+//#ifndef EX07_TRAITS_POLICIES_VECTOR_POLICIES_TPP
+//#define EX07_TRAITS_POLICIES_VECTOR_POLICIES_TPP
 
 #include "Vector.h"
 
@@ -32,8 +32,7 @@ struct ErrorCodeCheckingPolicy{
 struct ExceptionCheckingPolicy{
     static int errorCode;
 
-
-    static void check(std::size_t index, std::size_t size) {
+    static void check(int index, std::size_t size) {
         if(index >= size || index < 0)
             throw std::runtime_error("Not correct interval bounds");
     }
@@ -45,15 +44,18 @@ struct NoInit{
     static void init(T & t){}
 };
 
-struct ZeroInit{
-    template<typename T>
-    static void init(T & t){ t = T{}; }
-};
 
+
+struct ZeroInit{
+  template<typename T>
+  static void init(T & t){
+    t = T{};
+  }
+};
 
 
 using SafePolicy = IntervalPolicy<ExceptionCheckingPolicy,ZeroInit>;
 using FastPolicy = IntervalPolicy<NoCheckingPolicy,NoInit>;
 using InitFastPolicy = IntervalPolicy<NoCheckingPolicy,ZeroInit>;
 
-#endif //EX07_TRAITS_POLICIES_VECTOR_POLICIES_H
+//#endif //EX07_TRAITS_POLICIES_VECTOR_POLICIES_TPP
