@@ -16,12 +16,12 @@
 
 template <typename T,
         size_t N,
-        typename IntervalPolicy= IntervalPolicy<NoCheckingPolicy,NoInit>>
-class Vector : public IntervalPolicy{
+        template<typename> class IntervalPolicy = SafePolicy>
+class Vector : public IntervalPolicy<T>{
   T data[N];
 
-  using IntervalPolicy::init;
-  using IntervalPolicy::check;
+  using IntervalPolicy<T>::init;
+  using IntervalPolicy<T>::check;
 
  public:
   typedef typename vector_traits<T>::value_type value_type;
@@ -32,7 +32,8 @@ class Vector : public IntervalPolicy{
   typedef const typename  vector_traits<T>::access_type access_type;
   typedef typename vector_traits<T>::scalar_type scalar_type;
 
-//  using vector_traits<T>::defaultValue;
+  using vector_traits<T>::defaultValue;
+  using vector_traits<T>::mult;
 
   Vector(){
     for(int i = 0; i < N;i++){
@@ -57,11 +58,12 @@ class Vector : public IntervalPolicy{
     return data[index];
   }
 
-  static T defaultValue(){
-    if(is_string<T>::value){
-      return "0";
-    }
-    return T{};
+  static T defaultValuee(){
+      return vector_traits<T>::defaultValue();
+//    if(is_string<T>::value){
+//      return "0";
+//    }
+//    return T{};
   }
 
   void set(size_type index, access_type value) {
@@ -71,19 +73,9 @@ class Vector : public IntervalPolicy{
   friend Vector operator* (scalar_type x, const Vector & v ) {
     Vector result;
 
-    if constexpr (is_string<T>::value) {
       for (int i = 0; i < v.size(); ++i) {
-        auto val = v.get(i);
-        for (auto j = 0; j < x; j++) {
-          val += v.get(i);
-        }
-        result.set(i, val);
+          result.set(i, mult(x ,v.get(i)));
       }
-    } else {
-      for (int i = 0; i < v.size(); ++i) {
-        result.set(i, x * v.get(i));
-      }
-    }
     return result;
   }
 
