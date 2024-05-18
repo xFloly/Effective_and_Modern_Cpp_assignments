@@ -11,5 +11,6 @@ int main(){
   cout << median(a) << endl; // 3
   std::vector<int> v{3, 1, 4, 2};
   cout << median(v) << endl; // 2.5
+
   return 0;
 }
