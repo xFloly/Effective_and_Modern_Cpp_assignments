@@ -1,6 +1,44 @@
 #include <iostream>
+<<<<<<< Updated upstream
 
 #include "Solutions/Nodes.h"
+=======
+using namespace std;
+
+template <int N>
+class Vector{
+  int data[N];
+ public:
+  Vector(){
+	cout << " Default constr" << endl;
+  }
+  Vector(std::initializer_list<int> list){
+	cout << " Init list constr" << endl;
+	auto it = list.begin();
+	for(int i=0; i<N; i++) {
+	  data[i] = *it++;
+	}
+  }
+  Vector(const Vector & m){
+	std::copy(m.data, m.data+N, data);
+	cout << " Copy constr" << endl;
+  }
+  int operator[](int index) const {
+	return data[index];
+  }
+  int & operator[](int index){
+	return data[index];
+  }
+
+  friend ostream & operator << (ostream & out, const Vector & m){
+	for(auto x : m.data){
+	  cout << x << ", ";
+	}
+	return out;
+  }
+};
+
+>>>>>>> Stashed changes
 
 int main(){
   using V = Vector<10>;
@@ -12,12 +50,20 @@ int main(){
   // It does not create temporary Vectors
   // It computes resulting vector coordinate by coordinate
   // (evaluating whole expression)
+<<<<<<< Updated upstream
   V z;
   z = v + x + 3 * y - 2 * x;
   cout << z << endl;
 
   // Computes only one coordinate of Vector
   int e = (x+x+y)[2];
+=======
+  V z = v + x + 3 * y - 2 * x;
+  cout << z << endl;
+
+  // Computes only one coordinate of Vector
+  int e = (z+x+y)[2];
+>>>>>>> Stashed changes
   cout << " e = " << e << endl;
   return 0;
 }
