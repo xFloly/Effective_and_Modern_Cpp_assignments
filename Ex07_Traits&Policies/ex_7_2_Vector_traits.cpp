@@ -1,9 +1,5 @@
 #include <iostream>
-<<<<<<< Updated upstream
 #include "Solutions/Vector.h"
-=======
-#include "Vector.h"
->>>>>>> Stashed changes
 using  namespace std;
 int main() {
     Vector<double, 4> a{};
@@ -21,11 +17,8 @@ int main() {
     cout << "c   = " << c <<  endl;
     cout << "2*c = " << 2 * c <<  endl;
 
-<<<<<<< Updated upstream
 
     cout<<c.defaultValue();
-=======
->>>>>>> Stashed changes
     return 0;
 }
 /**

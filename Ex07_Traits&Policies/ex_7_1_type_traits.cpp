@@ -1,17 +1,13 @@
 #include <iostream>
-<<<<<<< Updated upstream
 #include <limits>
 #include <iostream>
 #include <iomanip>
 #include <type_traits>
-=======
->>>>>>> Stashed changes
 using  namespace std;
 /**
  * Outputs information about numerical type T:
  * (un)signed, (not) integer, min & max values
 */
-<<<<<<< Updated upstream
 
 template <typename T>
 void info(T x, int w = 12){
@@ -37,11 +33,6 @@ void info(T x, int w = 12){
          << setw(w) << "min"<< " : " << min
          << setw(w) << "max" << " : " << max
          << endl;
-=======
-template <typename T>
-void info(T x){
-
->>>>>>> Stashed changes
 }
 
 int main() {

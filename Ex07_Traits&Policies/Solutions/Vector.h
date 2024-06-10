@@ -11,9 +11,6 @@
 #include "vector_traits.h"
 #include "vector_policies.h"
 
-
-
-
 template <typename T,
         size_t N,
         template<typename> class IntervalPolicy = SafePolicy>
@@ -32,8 +29,8 @@ class Vector : public IntervalPolicy<T>{
   typedef const typename  vector_traits<T>::access_type access_type;
   typedef typename vector_traits<T>::scalar_type scalar_type;
 
-  using vector_traits<T>::defaultValue;
-  using vector_traits<T>::mult;
+//  using vector_traits<T>::defaultValue;
+//  using vector_traits<T>::mult;
 
   Vector(){
     for(int i = 0; i < N;i++){
@@ -57,15 +54,9 @@ class Vector : public IntervalPolicy<T>{
     check(index, N);
     return data[index];
   }
-
-  static T defaultValuee(){
+  static T defaultValue() {
       return vector_traits<T>::defaultValue();
-//    if(is_string<T>::value){
-//      return "0";
-//    }
-//    return T{};
   }
-
   void set(size_type index, access_type value) {
 	data[index] = value;
   }
@@ -74,7 +65,7 @@ class Vector : public IntervalPolicy<T>{
     Vector result;
 
       for (int i = 0; i < v.size(); ++i) {
-          result.set(i, mult(x ,v.get(i)));
+          result.set(i, vector_traits<T>::mult(x ,v.get(i)));
       }
     return result;
   }
