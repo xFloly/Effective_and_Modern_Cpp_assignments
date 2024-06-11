@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Solutions/Vector.h"
 using  namespace std;
+using namespace emcpp;
 int main() {
     Vector<double, 4> a{};
     for(int i=0; i<a.size(); i++){

@@ -1,0 +1,4 @@
+"C:\Program Files\JetBrains\CLion 2023.3.4\bin\cmake\win\x64\bin\cmake.exe" "-DCMAKE_MAKE_PROGRAM=C:/Program Files/JetBrains/CLion 2023.3.4/bin/ninja/win/x64/ninja.exe" -G Ninja -S C:\Users\soszy\Documents\studia\6\Cpp\Effective_and_Modern_Cpp\Ex07_Traits&Policies -B C:\Users\soszy\Documents\studia\6\Cpp\Effective_and_Modern_Cpp\Ex07_Traits&Policies\cmake-build-default
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: C:/Users/soszy/Documents/studia/6/Cpp/Effective_and_Modern_Cpp/Ex07_Traits&Policies/cmake-build-default

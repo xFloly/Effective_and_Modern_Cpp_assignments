@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.27)
 project(Ex07_Traits&Policies)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 add_executable(ex1_type_traits ex_7_1_type_traits.cpp)
 add_executable(ex2_traits ex_7_2_Vector_traits.cpp

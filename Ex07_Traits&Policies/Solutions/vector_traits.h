@@ -4,31 +4,31 @@
 #include "Vector.h"
 #include <type_traits>
 #include <string>
+namespace emcpp {
+  using std::string;
 
-using std::string;
-
-template<typename T>
-struct vector_traits{
+  template<typename T>
+  struct vector_traits {
     typedef T value_type;
-    typedef std::size_t  size_type;
-    typedef T* pointer;
-    typedef T& reference;
-    typedef const T& const_reference;
-    typedef const T& access_type;
+    typedef std::size_t size_type;
+    typedef T *pointer;
+    typedef T &reference;
+    typedef const T &const_reference;
+    typedef const T &access_type;
     typedef T scalar_type;
 
     static T defaultValue() {
       return T();
     }
 
-    T mult (scalar_type a, value_type b) {
-        T result = a * b;
-        return result;
+    static T mult(scalar_type a, value_type b) {
+      T result = a * b;
+      return result;
     }
-};
+  };
 
-template<>
-struct vector_traits<int> {
+  template<>
+  struct vector_traits<int> {
     typedef int value_type;
     typedef std::size_t size_type;
     typedef int *pointer;
@@ -38,16 +38,17 @@ struct vector_traits<int> {
     typedef int scalar_type;
 
     static int defaultValue() {
-        return int();
+      return int();
     }
 
-    int mult (scalar_type a, value_type b){
-        int result = a * b;
-        return result;
+    static int mult(scalar_type a, value_type b) {
+      int result = a * b;
+      return result;
     }
-};
-template<>
-struct vector_traits<double> {
+  };
+
+  template<>
+  struct vector_traits<double> {
     typedef double value_type;
     typedef std::size_t size_type;
     typedef double *pointer;
@@ -57,39 +58,39 @@ struct vector_traits<double> {
     typedef double scalar_type;
 
     static double defaultValue() {
-        return double();
+      return double();
     }
 
-    double mult (scalar_type a, value_type b) {
-        double result = a * b;
-        return result;
+    static double mult(scalar_type a, value_type b) {
+      double result = a * b;
+      return result;
     }
-};
+  };
 
-template<>
-struct vector_traits<string>{
+  template<>
+  struct vector_traits<string> {
     typedef string value_type;
-    typedef std::size_t  size_type;
-    typedef string* pointer;
-    typedef string& reference;
-    typedef const string& const_reference;
-    typedef const string& access_type;
+    typedef std::size_t size_type;
+    typedef string *pointer;
+    typedef string &reference;
+    typedef const string &const_reference;
+    typedef const string &access_type;
     typedef int scalar_type;
 
-    static string defaultValue(){
+    static string defaultValue() {
       return "0";
     }
 
-    string mult (scalar_type a, value_type b) {
-        string result = b;
-        for (auto j = 0; j < a; j++) {
-            result += b;
-        }
-        return result;
+    static string mult(scalar_type a, value_type b) {
+      string result = b;
+      for (auto j = 0; j < a; j++) {
+        result += b;
+      }
+      return result;
     }
-};
+  };
 
-
+}
 //template<typename T>
 //struct is_string {
 //    static constexpr bool value = false;

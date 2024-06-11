@@ -1,18 +1,13 @@
-cmake_minimum_required(VERSION 3.17)
-project(Lab2)
+cmake_minimum_required(VERSION 3.27)
+project(SmartPointers)
 
-set(CMAKE_CXX_STANDARD 17)
+set(SOURCE_FILES_4 impl/Ex4_String.cpp)
 
-add_executable(DynamicContainer Ex3_DynamicContainer.cpp
-        String.cpp
-        String.cpp)
-add_executable(StaticContainer Ex1_StaticContainer.cpp
-        String.cpp
-        String.cpp)
-add_executable(StaticContainer2 Ex2_StaticContainer2.cpp
-        String.cpp
-        String.cpp)
+add_executable(smart_pointer_run_4 ${SOURCE_FILES_4})
 
-add_executable(String Ex4_String.cpp
-        String.cpp
-        String.cpp)
+include_directories(impl)
+
+add_subdirectory(impl)
+add_subdirectory(Google_tests)
+
+target_link_libraries(smart_pointer_run_4 gtest gtest_main)

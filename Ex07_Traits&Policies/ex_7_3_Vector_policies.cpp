@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Solutions/Vector.h"
 using  namespace std;
+using namespace emcpp;
 int main() {
     int value = 5;
     {  /// sets coordinates to zero and checks indices

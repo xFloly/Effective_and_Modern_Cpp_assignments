@@ -1,0 +1,6 @@
+C:/Users/soszy/Documents/studia/6/Cpp/Effective_and_Modern_Cpp/Ex07_Traits&Policies/cmake-build-default/CMakeFiles/ex1_type_traits.dir
+C:/Users/soszy/Documents/studia/6/Cpp/Effective_and_Modern_Cpp/Ex07_Traits&Policies/cmake-build-default/CMakeFiles/ex2_traits.dir
+C:/Users/soszy/Documents/studia/6/Cpp/Effective_and_Modern_Cpp/Ex07_Traits&Policies/cmake-build-default/CMakeFiles/ex3_policies.dir
+C:/Users/soszy/Documents/studia/6/Cpp/Effective_and_Modern_Cpp/Ex07_Traits&Policies/cmake-build-default/CMakeFiles/ex4_operators.dir
+C:/Users/soszy/Documents/studia/6/Cpp/Effective_and_Modern_Cpp/Ex07_Traits&Policies/cmake-build-default/CMakeFiles/edit_cache.dir
+C:/Users/soszy/Documents/studia/6/Cpp/Effective_and_Modern_Cpp/Ex07_Traits&Policies/cmake-build-default/CMakeFiles/rebuild_cache.dir
